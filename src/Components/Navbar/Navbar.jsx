@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Container,
@@ -53,17 +54,19 @@ export const Navbar = ({ refreshNav, setRefreshNav }) => {
         >
           <HStack spacing="10" justify="space-between">
             <Box>
-              <Image
-                src="https://play-lh.googleusercontent.com/YjO3MoN7jv4_OLJGzR4tiekDuJD5Hu-U7D5JTKPz_KdLb2dirsVt3KTKBe2gZpRFtR8"
-                alt="logo"
-                h="40px"
-                w="40px"
-              />
+              <Link to="/">
+                <Image
+                  src="https://play-lh.googleusercontent.com/YjO3MoN7jv4_OLJGzR4tiekDuJD5Hu-U7D5JTKPz_KdLb2dirsVt3KTKBe2gZpRFtR8"
+                  alt="logo"
+                  h="40px"
+                  w="40px"
+                />
+              </Link>
             </Box>
             <Box>
               {isDesktop ? (
                 <Flex justify="space-between" flex="1">
-                  <HStack spacing="3">
+                  <HStack spacing="5">
                     {!token ? (
                       <>
                         <Link to="/login">
@@ -78,13 +81,23 @@ export const Navbar = ({ refreshNav, setRefreshNav }) => {
                         </Link>
                       </>
                     ) : (
-                      <Button
-                        onClick={handleLogout}
-                        variant="solid"
-                        colorScheme="blue"
-                      >
-                        Sign Out
-                      </Button>
+                      <>
+                        <Link to="/profile">
+                          <Avatar
+                            cursor="pointer"
+                            bg="brand.500"
+                            size="lg"
+                            src="https://horizon-ui.com/components/static/media/avatar.0943c821944146790f7ca3035508f323.svg"
+                          />
+                        </Link>
+                        <Button
+                          onClick={handleLogout}
+                          variant="solid"
+                          colorScheme="blue"
+                        >
+                          Sign Out
+                        </Button>
+                      </>
                     )}
                   </HStack>
                 </Flex>

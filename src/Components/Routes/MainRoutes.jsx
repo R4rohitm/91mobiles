@@ -5,6 +5,7 @@ import { Login } from "../Login/Login";
 import { Register } from "../Login/Register";
 import AuthRoutes from "./AuthRoutes";
 import { Navbar } from "../Navbar/Navbar";
+import UserProfile from "../Profile/UserProfile";
 
 const MainRoutes = () => {
   const [refreshNav, setRefreshNav] = useState(false);
@@ -20,6 +21,7 @@ const MainRoutes = () => {
             <Login refreshNav={refreshNav} setRefreshNav={setRefreshNav} />
           }
         />
+        <Route path="/profile" element={<UserProfile />} />
         <Route
           path="/"
           element={

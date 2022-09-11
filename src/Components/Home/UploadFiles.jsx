@@ -12,6 +12,7 @@ const UploadFiles = ({ userid, setFilesData }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setFilesData(null);
     const data = new FormData();
     data.append("file", files);
     data.append("userid", userid);
@@ -31,12 +32,13 @@ const UploadFiles = ({ userid, setFilesData }) => {
   };
 
   return (
-    <div class="col-md-6 m-auto">
+    <div class="col-md-5 m-auto">
       <form method="post" action="#" id="#" onSubmit={onSubmit}>
         <div className="form-group files">
           <label>Upload Your File </label>
           <input
             type="file"
+            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .pdf"
             onChange={onInputChange}
             className="form-control"
           />

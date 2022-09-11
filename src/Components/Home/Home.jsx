@@ -1,7 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import UploadFiles from "./UploadFiles";
-import { Flex } from "@chakra-ui/react";
+import { Worker } from "@react-pdf-viewer/core";
+import { Viewer } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 const Home = () => {
   const [filesData, setFilesData] = useState();
@@ -10,6 +15,8 @@ const Home = () => {
   if (data) {
     token = data.token;
   }
+
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const checkUser = async () => {
     try {
       let response = await fetch(
@@ -34,15 +41,14 @@ const Home = () => {
     <div>
       <UploadFiles userid={data.userid} setFilesData={setFilesData} />
       {filesData ? (
-        <Flex>
-          <iframe
-            src={`https://wtfassignment108.herokuapp.com/uploads/${filesData.files[0].filename}`}
-            title="Files"
-            width="800"
-            height="1000"
-            style={{ margin: "auto", marginTop: "80px" }}
-          />
-        </Flex>
+        <>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.min.js">
+            <Viewer
+              fileUrl={`https://wtfassignment108.herokuapp.com/uploads/${filesData.files[0].filename}`}
+              plugins={[defaultLayoutPluginInstance]}
+            />
+          </Worker>
+        </>
       ) : null}
     </div>
   );
