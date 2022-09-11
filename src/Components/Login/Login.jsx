@@ -17,11 +17,12 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 // import { Logo } from "./Logo";
+import { Link } from "react-router-dom";
 import { PasswordField } from "./PasswordField";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login = ({ refreshNav, setRefreshNav }) => {
   const [formData, setFormData] = useState();
   const [spinnerState, setSpinnerState] = useState(false);
 
@@ -43,7 +44,8 @@ export const Login = () => {
       localStorage.setItem("user", JSON.stringify(data));
       if (data) {
         setSpinnerState(false);
-        navigate("/home");
+        setRefreshNav(!refreshNav);
+        navigate("/");
       }
       console.log(data);
     } catch (e) {
@@ -68,7 +70,7 @@ export const Login = () => {
       maxW="lg"
       py={{
         base: "12",
-        md: "24",
+        md: "14",
       }}
       px={{
         base: "0",
@@ -94,9 +96,11 @@ export const Login = () => {
             </Heading>
             <HStack spacing="1" justify="center">
               <Text color="muted">Don't have an account?</Text>
-              <Button variant="link" colorScheme="blue">
-                Sign up
-              </Button>
+              <Link to="/signup">
+                <Button variant="link" colorScheme="blue">
+                  Sign up
+                </Button>
+              </Link>
             </HStack>
           </Stack>
         </Stack>

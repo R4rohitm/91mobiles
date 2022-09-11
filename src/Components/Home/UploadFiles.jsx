@@ -3,9 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Button } from "@chakra-ui/react";
 
-const UploadFiles = ({ userid }) => {
+const UploadFiles = ({ userid, setFilesData }) => {
   const [files, setFiles] = useState([]);
-  //   const [filesData, setFilesData] = useState();
 
   const onInputChange = (e) => {
     setFiles(e.target.files[0]);
@@ -20,10 +19,11 @@ const UploadFiles = ({ userid }) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
     await axios
-      .post("http://localhost:8080/upload", data, config)
+      .post("https://wtfassignment108.herokuapp.com/upload", data, config)
       .then((response) => {
         toast.success("Upload Success");
         console.log(response.data);
+        setFilesData(response.data);
       })
       .catch((e) => {
         toast.error("Upload Error");

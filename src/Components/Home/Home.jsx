@@ -1,8 +1,10 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UploadFiles from "./UploadFiles";
+import { Flex } from "@chakra-ui/react";
 
 const Home = () => {
+  const [filesData, setFilesData] = useState();
   const data = JSON.parse(localStorage.getItem("user"));
   let token;
   if (data) {
@@ -23,13 +25,25 @@ const Home = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     checkUser();
     // eslint-disable-next-line
   }, []);
   return (
     <div>
-      <UploadFiles userid={data.userid} />
+      <UploadFiles userid={data.userid} setFilesData={setFilesData} />
+      {filesData ? (
+        <Flex>
+          <iframe
+            src={`https://wtfassignment108.herokuapp.com/uploads/${filesData.files[0].filename}`}
+            title="Files"
+            width="800"
+            height="1000"
+            style={{ margin: "auto", marginTop: "80px" }}
+          />
+        </Flex>
+      ) : null}
     </div>
   );
 };

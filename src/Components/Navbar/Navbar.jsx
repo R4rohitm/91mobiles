@@ -10,21 +10,34 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import * as React from "react";
+import { useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
 import { Link } from "react-router-dom";
 // import { Logo } from "./Logo";
 
-export const Navbar = () => {
+export const Navbar = ({ refreshNav, setRefreshNav }) => {
+  const data = JSON.parse(localStorage.getItem("user"));
+  let token;
+  if (data) {
+    token = data.token;
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setRefreshNav(!refreshNav);
+  };
   const isDesktop = useBreakpointValue({
     base: false,
     lg: true,
   });
+
+  useEffect(() => {}, [refreshNav]);
   return (
     <Box
       as="section"
       pb={{
-        base: "12",
-        md: "24",
+        base: "10",
+        md: "0",
       }}
     >
       <Box
@@ -34,7 +47,7 @@ export const Navbar = () => {
       >
         <Container
           py={{
-            base: "4",
+            base: "0",
             lg: "5",
           }}
         >
@@ -51,14 +64,28 @@ export const Navbar = () => {
               {isDesktop ? (
                 <Flex justify="space-between" flex="1">
                   <HStack spacing="3">
-                    <Link to="/login">
-                      <Button variant="ghost" colorScheme="blue">
-                        Sign in
+                    {!token ? (
+                      <>
+                        <Link to="/login">
+                          <Button variant="ghost" colorScheme="blue">
+                            Sign in
+                          </Button>
+                        </Link>
+                        <Link to="/signup">
+                          <Button variant="solid" colorScheme="blue">
+                            Sign up
+                          </Button>
+                        </Link>
+                      </>
+                    ) : (
+                      <Button
+                        onClick={handleLogout}
+                        variant="solid"
+                        colorScheme="blue"
+                      >
+                        Sign Out
                       </Button>
-                    </Link>
-                    <Button variant="solid" colorScheme="blue">
-                      Sign up
-                    </Button>
+                    )}
                   </HStack>
                 </Flex>
               ) : (
