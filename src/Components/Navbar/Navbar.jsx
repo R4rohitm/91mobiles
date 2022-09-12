@@ -29,6 +29,7 @@ export const Navbar = ({ refreshNav, setRefreshNav }) => {
   };
   const isDesktop = useBreakpointValue({
     base: false,
+    md: true,
     lg: true,
   });
 
@@ -38,8 +39,9 @@ export const Navbar = ({ refreshNav, setRefreshNav }) => {
       as="section"
       pb={{
         base: "10",
-        md: "0",
+        md: "10",
       }}
+      w="100%"
     >
       <Box
         as="nav"
@@ -47,9 +49,10 @@ export const Navbar = ({ refreshNav, setRefreshNav }) => {
         boxShadow={useColorModeValue("sm", "sm-dark")}
       >
         <Container
+          w="full"
           py={{
-            base: "0",
-            lg: "5",
+            base: "4",
+            lg: "2",
           }}
         >
           <HStack spacing="10" justify="space-between">

@@ -21,7 +21,15 @@ const MainRoutes = () => {
             <Login refreshNav={refreshNav} setRefreshNav={setRefreshNav} />
           }
         />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route
+          path="/profile"
+          element={
+            <UserProfile
+              refreshNav={refreshNav}
+              setRefreshNav={setRefreshNav}
+            />
+          }
+        />
         <Route
           path="/"
           element={

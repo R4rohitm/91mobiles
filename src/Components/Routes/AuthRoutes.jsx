@@ -7,7 +7,6 @@ const AuthRoutes = ({ children }) => {
   if (data) {
     token = data.token;
   }
-  console.log(data);
 
   const navigate = useNavigate();
 

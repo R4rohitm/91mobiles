@@ -19,7 +19,7 @@ import * as React from "react";
 // import { Logo } from "./Logo";
 import { Link } from "react-router-dom";
 import { PasswordField } from "./PasswordField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Login = ({ refreshNav, setRefreshNav }) => {
@@ -27,6 +27,8 @@ export const Login = ({ refreshNav, setRefreshNav }) => {
   const [spinnerState, setSpinnerState] = useState(false);
 
   const navigate = useNavigate();
+
+  const storedData = JSON.parse(localStorage.getItem("user"));
 
   const loginUser = async (user) => {
     setSpinnerState(true);
@@ -45,7 +47,7 @@ export const Login = ({ refreshNav, setRefreshNav }) => {
       if (data) {
         setSpinnerState(false);
         setRefreshNav(!refreshNav);
-        navigate("/");
+        navigate("/profile");
       }
       console.log(data);
     } catch (e) {
@@ -64,6 +66,13 @@ export const Login = ({ refreshNav, setRefreshNav }) => {
     console.log(formData);
     loginUser(formData);
   };
+
+  useEffect(() => {
+    if (storedData?.token) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container

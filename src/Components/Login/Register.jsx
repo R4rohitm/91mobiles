@@ -28,6 +28,11 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
+  const storedData = JSON.parse(localStorage.getItem("user"));
+  if (storedData) {
+    navigate("/");
+  }
+
   const registerUser = async (user) => {
     setSpinnerState(true);
     try {
